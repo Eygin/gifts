@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add some custom CSS styles if needed */
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>ToDo App</h1>
+        <div class="input-group mb-3">
+            <input type="text" id="taskInput" class="form-control" placeholder="Add a new task">
+            <div class="input-group-append">
+                <button class="btn btn-primary" onclick="addTask()">Add</button>
+            </div>
+        </div>
+        <ul id="taskList" class="list-group">
+            <!-- Tasks will be added here dynamically -->
+        </ul>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Array to store tasks
+        let tasks = [];
+
+        // Function to add a new task
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskText = taskInput.value.trim();
+            if (taskText !== "") {
+                tasks.push({ text: taskText, done: false });
+                displayTasks();
+                taskInput.value = "";
+            }
+        }
+
+        // Function to display tasks
+        function displayTasks() {
+            const taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+            tasks.forEach((task, index) => {
+                const listItem = document.createElement("li");
+                listItem.className = "list-group-item";
+                listItem.innerHTML = `
+                    <input type="checkbox" id="task${index}" ${task.done ? "checked" : ""}>
+                    <label for="task${index}" class="${task.done ? "completed" : ""}">${task.text}</label>
+                    <button class="btn btn-sm btn-danger float-right" onclick="deleteTask(${index})">Delete</button>
+                    <button class="btn btn-sm btn-primary float-right mr-2" onclick="editTask(${index})">Edit</button>
+                `;
+                taskList.appendChild(listItem);
+
+                // Add event listener to the checkbox
+                const checkbox = listItem.querySelector(`#task${index}`);
+                checkbox.addEventListener("change", () => {
+                    tasks[index].done = checkbox.checked;
+                    listItem.querySelector("label").classList.toggle("completed");
+                });
+            });
+        }
+
+        // Function to delete a task
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+            displayTasks();
+        }
+
+        // Function to edit a task
+        function editTask(index) {
+            const newText = prompt("Edit task:", tasks[index].text);
+            if (newText !== null) {
+                tasks[index].text = newText;
+                displayTasks();
+            }
+        }
+
+        // Initial display
+        displayTasks();
+    </script>
+</body>
+</html>

@@ -1,45 +1,42 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+<h1 align="center">Aplikasi Gift</h1>
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+## Requirement Aplikasi
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+1. VSCode
+2. PHP 7.3 atau PHP 8
+3. Laravel 8
+4. Postman
+5. Composer
 
----
+## Modul Aplikasi
 
-## Edit a file
+1. Gift
+2. User
+3. Role
+4. Permission
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Setup documentation
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+1. Setup Aplikasi:
+    - Pertama jalankan : <code>composer install</code>
+    - Duplikat file .env.example dan ubah nama file yang sudah di duplikat tadi menjadi .env
+    - Jalankan perintah : <code>php artisan key:generate</code>
+    - Isi bagian DB_DATABASE, DB_USERNAME, dan DB_PASSWORD: <br>
+    <code>
+        DB_CONNECTION=mysql <br>
+        DB_HOST=127.0.0.1 <br>
+        DB_PORT=3306 <br>
+        DB_DATABASE=laravel <br>
+        DB_USERNAME=root <br>
+        DB_PASSWORD= <br>
+    </code>
+    di .env sesuaikan dengan nama dan password koneksi kalian
+    - Jalankan perintah : <code>php artisan config:cache</code>
+    - Kemudian <code>php artisan migrate</code> untuk menjalankan perintah migrasi ke database
+    - Kemudian jalankan seeder dengan perintah <code>php artisan db:seed --class=UserSeeder</code> dan <code>php artisan db:seed --class=GiftSeeder</code> untuk dummy data ke database
+    - Setelah itu jalankan perintah : <code>php artisan jwt:secret</code> untuk generate string hash yang digunakan untuk JWT, dan juga tambahkan code <code>JWT_SHOW_BLACKLIST_EXCEPTION = true</code> dibawah code hasil generate tadi
+    - Lakukan kembali perintah : <code>php artisan config:cache</code> untuk clear cache file .env tadi
+    - Kemudian jalankan perintah <code>php artisan serve</code> untuk menjalankan aplikasi di lokal
 
----
+<i>Catatan: untuk point migrasi ke database bisa menggunakan 2 opsi, bisa melalui perintah <code>php artisan serve</code> atau import ke database menggunakan file .sql yang sudah di sediakan di folder docs </i>
 
-## Create a file
-
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
